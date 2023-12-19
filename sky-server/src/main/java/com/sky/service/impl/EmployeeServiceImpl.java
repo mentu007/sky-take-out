@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
@@ -76,13 +77,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
         //设置创建时间以及跟新时间
 
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
-        /*
-        * 这里为什么写成是10L？
-        * 先了解这里的业务：这里需要存储 修改人和跟新人的ID
-        * 暂时不能直接从 数据传输对象获取这个ID，后续会有一个新技术解决这个问题
-        * */
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
         employeeMapper.insert(employee);
 
 
